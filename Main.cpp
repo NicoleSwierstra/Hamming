@@ -3,14 +3,19 @@
 #include <bitset>
 
 #include "BitScrewer.hpp"
+#include "Hamming.h"
+#include "Hamming.cpp"
 
 int main(void) {
     srand(time(nullptr));
     
-    char a = 0;
+    Hamming1511 a;
+    a.setData(304);
 
-    std::bitset<8> x(a);
-    screw1Bit(a);
-    std::bitset<8> y(a);
-    std::cout << x << '\n' << y << '\n' << h << '\n';
+    a.data[10] = !a.data[10]; 
+
+    std::cout << "Message: " << std::bitset<11>(304) << "\n";
+    std::cout << "Error:   " << std::bitset<11>(a.getDataRaw()) << "\n";
+    int i = a.getData();
+    std::cout << "Fixed:   " << std::bitset<11>(i);
 }
